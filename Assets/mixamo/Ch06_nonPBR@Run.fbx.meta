@@ -6,7 +6,22 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: Run
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ch06_body
+    second: {fileID: 2100000, guid: 6798c598ba74bed4280d0e3e13d4ac29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ch06_body1
+    second: {fileID: 2100000, guid: d289950cbccd8f946a2113d3e31b4d1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ch06_eyelashes
+    second: {fileID: 2100000, guid: d03e932377320ed4792bb2f4d6d56a94, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

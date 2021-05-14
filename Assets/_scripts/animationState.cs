@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿// transisoes de animacao propriedade intelectual de https://youtu.be/FF6kezDQZ7s
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class animationState : MonoBehaviour
 {
     Animator animator;
     int isWalkingHash,isRunningHash;
+    public bool forwardPressed = false;
+    public bool runPressed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +22,9 @@ public class animationState : MonoBehaviour
     void Update()
     {
         bool isWalking = animator.GetBool(isWalkingHash);
-        bool forwardPressed = Input.GetKey("w");
 
         bool isRunning = animator.GetBool(isRunningHash);
-        bool runPressed = Input.GetKey("left shift");
+        // bool runPressed = Input.GetKey("left shift");
 
         // idle -> walk
         if(!isWalking && forwardPressed)
@@ -39,12 +41,11 @@ public class animationState : MonoBehaviour
         {
             animator.SetBool(isRunningHash,true);
         }
-        if(isRunning && (forwardPressed || runPressed))
+        if( isRunning && (!forwardPressed || !runPressed))
         {
             animator.SetBool(isRunningHash,false);
         }
         
-    
 
     }
 }
