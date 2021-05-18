@@ -19,31 +19,23 @@ public class playerController : MonoBehaviour {
     }
 
     void Update() {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
-        // if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") !=0){
-        //     anim.forwardPressed = true;
-        // }
+        
         anim.forwardPressed = Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d");
         anim.runPressed = anim.forwardPressed && Input.GetKey("left shift");
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = transform.right * x + transform.forward*z;
+
+        if (Input.GetButton("Fire3")){
+            playerSpeed = 4f;          
+        }else {
+            playerSpeed = 2f;
+        }
+
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        if (move != Vector3.zero)
-        {
-            gameObject.transform.forward = move;
-        }
-
-        // Changes the height position of the player..
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        
     }
 }

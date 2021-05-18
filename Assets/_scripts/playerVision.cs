@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿// TUTORIAL USADO: https://www.youtube.com/watch?v=_QajrabyTJc&t=16s, por brakeys
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class playerVision : MonoBehaviour {
 
     float xRotation = 0f;
     void Start(){
-
+        Cursor.lockState = CursorLockMode.Locked;
         // gm = GameManager.GetInstance();
     }
     void Update(){
@@ -34,7 +35,7 @@ public class playerVision : MonoBehaviour {
 
         xRotation -=mouseY;
 
-        xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
+        xRotation = Mathf.Clamp(xRotation, -70.0f, 70.0f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
