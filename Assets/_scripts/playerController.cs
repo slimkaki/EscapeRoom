@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour {
     private CharacterController controller;
+    public Camera camera;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed = 2.0f;
@@ -15,6 +16,7 @@ public class playerController : MonoBehaviour {
     
     void Start() {
         controller = gameObject.GetComponent<CharacterController>();
+        // camera = gameObject.GetComponent<Camera>();
         // anim = GetComponent<animationState>();
     }
 
@@ -38,4 +40,5 @@ public class playerController : MonoBehaviour {
 
         
     }
+   
 }

@@ -7,13 +7,16 @@ public class playerVision : MonoBehaviour {
 
     public float mouseSense = 100f;
     public Transform playerBody;
-    [SerializeField]
+    
+    private Camera camera;
+    // [SerializeField]
     // public GameObject player;
     // GameManager gm;
 
     float xRotation = 0f;
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
+        camera = gameObject.GetComponent<Camera>();
         // gm = GameManager.GetInstance();
     }
     void Update(){
@@ -41,6 +44,26 @@ public class playerVision : MonoBehaviour {
 
         playerBody.Rotate(Vector3.up * mouseX);
 
+        
        
     }
+
+     void LateUpdate()
+
+        {
+        RaycastHit hit;
+        Debug.DrawRay(camera.transform.position, transform.forward, Color.magenta);
+        if(Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 100.0f))
+        {
+            
+            if(hit.collider.tag=="key" && Input.GetMouseButtonDown(0)){
+                Destroy(hit.transform.gameObject);
+
+                Debug.Log(hit.collider.name);
+                
+            
+            }
+        }
+        }
+       
 }
