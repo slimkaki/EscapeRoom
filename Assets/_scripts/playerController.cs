@@ -6,11 +6,11 @@ using UnityEngine;
 public class playerController : MonoBehaviour {
     private CharacterController controller;
     public Camera camera;
-    private Vector3 playerVelocity;
+    private Vector3 velocity;
     private bool groundedPlayer;
     private float playerSpeed = 2.0f;
     private float jumpHeight = 1.0f;
-    private float gravityValue = -9.81f;
+    private float gravity = -9.81f;
     [SerializeField]
     public animationState anim;
     
@@ -38,7 +38,9 @@ public class playerController : MonoBehaviour {
 
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        
+        velocity.y += gravity * Time.deltaTime;
+      
+        controller.Move(velocity * Time.deltaTime);
     }
    
 }
