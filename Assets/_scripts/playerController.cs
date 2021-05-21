@@ -31,6 +31,7 @@ public class playerController : MonoBehaviour {
         Vector3 move = transform.right * x + transform.forward*z;
 
         if (Input.GetButton("Fire3")){
+            // Time.timeScale = 0;
             playerSpeed = 4f;          
         }else {
             playerSpeed = 2f;
