@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// using UnityEngine.SceneManagement;
 public class playerController : MonoBehaviour {
     private CharacterController controller;
     public Camera camera;
@@ -37,12 +37,14 @@ public class playerController : MonoBehaviour {
             playerSpeed = 3f;
         }
 
-        // if (Input.GetButton(KeyCode.Escape)){
-        //     Time.timeScale = 0;
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            Time.timeScale = 0;
+            
           
-        // }else {
+         }//else {
         //     Time.timeScale = 1;
         // }
+        
 
         controller.Move(move * Time.deltaTime * playerSpeed);
 
