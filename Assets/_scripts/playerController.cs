@@ -8,7 +8,7 @@ public class playerController : MonoBehaviour {
     public Camera camera;
     private Vector3 velocity;
     private bool groundedPlayer;
-    private float playerSpeed = 2.0f;
+    private float playerSpeed = 3.0f;
     private float jumpHeight = 1.0f;
     private float gravity = -9.81f;
     [SerializeField]
@@ -32,10 +32,17 @@ public class playerController : MonoBehaviour {
 
         if (Input.GetButton("Fire3")){
             // Time.timeScale = 0;
-            playerSpeed = 4f;          
+            playerSpeed = 5f;          
         }else {
-            playerSpeed = 2f;
+            playerSpeed = 3f;
         }
+
+        // if (Input.GetButton(KeyCode.Escape)){
+        //     Time.timeScale = 0;
+          
+        // }else {
+        //     Time.timeScale = 1;
+        // }
 
         controller.Move(move * Time.deltaTime * playerSpeed);
 
