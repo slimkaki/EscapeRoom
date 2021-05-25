@@ -37,13 +37,7 @@ public class playerController : MonoBehaviour {
             playerSpeed = 3f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            Time.timeScale = 0;
-            
-          
-         }//else {
-        //     Time.timeScale = 1;
-        // }
+      
         
 
         controller.Move(move * Time.deltaTime * playerSpeed);

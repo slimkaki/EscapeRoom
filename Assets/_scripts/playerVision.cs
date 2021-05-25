@@ -32,7 +32,7 @@ public class playerVision : MonoBehaviour {
         //     gm.ChangeState(GameManager.GameState.PAUSE);
         // }
         
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.lockState = CursorLockMode.Locked;
         float mouseX = Input.GetAxis("Mouse X") * mouseSense * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSense * Time.deltaTime;
 
