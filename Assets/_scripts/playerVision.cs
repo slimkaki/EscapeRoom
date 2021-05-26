@@ -56,14 +56,23 @@ public class playerVision : MonoBehaviour {
         if(Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 100.0f))
         {
             
-            if(hit.collider.tag=="key" && Input.GetMouseButtonDown(0)){
+            if(hit.collider.tag=="card" && Input.GetMouseButtonDown(0)){
                 Destroy(hit.transform.gameObject);
-
-                Debug.Log(hit.collider.name);
-                
-            
+                Debug.Log($"Peguei o objeto: {hit.collider.name}");
+            }
+            if(hit.collider.tag=="paraquedas" && Input.GetMouseButtonDown(0)){
+                Destroy(hit.transform.gameObject);
+                Debug.Log($"Peguei o objeto: {hit.collider.name}");
+            }
+            if(hit.collider.tag=="tool" && Input.GetMouseButtonDown(0)){
+                Destroy(hit.transform.gameObject);
+                Debug.Log($"Peguei o objeto: {hit.collider.name}");
+            }
+            if(hit.collider.tag=="lanterna" && Input.GetMouseButtonDown(0)){
+                Destroy(hit.transform.gameObject);
+                Debug.Log($"Peguei o objeto: {hit.collider.name}");
             }
         }
-        }
+    }
        
 }

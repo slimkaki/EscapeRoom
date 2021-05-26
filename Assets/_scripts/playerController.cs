@@ -7,9 +7,9 @@ public class playerController : MonoBehaviour {
     private CharacterController controller;
     public Camera camera;
     private Vector3 velocity;
-    private bool groundedPlayer;
+    // private bool groundedPlayer;
     private float playerSpeed = 3.0f;
-    private float jumpHeight = 1.0f;
+    // private float jumpHeight = 1.0f;
     private float gravity = -9.81f;
     [SerializeField]
     public animationState anim;
