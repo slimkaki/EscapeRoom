@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - key
+  - card
+  - tool
+  - paraquedas
+  - lanterna
+  - enemy
   layers:
   - Default
   - TransparentFX
