@@ -10,6 +10,9 @@ TagManager:
   - paraquedas
   - lanterna
   - enemy
+  - objetivo
+  - cabine
+  - paraquedasCard
   layers:
   - Default
   - TransparentFX
