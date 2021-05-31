@@ -13,6 +13,10 @@ TagManager:
   - objetivo
   - cabine
   - paraquedasCard
+  - HintText
+  - paraquedasDoor
+  - cabine1
+  - cabine2
   layers:
   - Default
   - TransparentFX
