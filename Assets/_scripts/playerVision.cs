@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class playerVision : MonoBehaviour {
 
     public float mouseSense = 100f;
@@ -14,6 +15,10 @@ public class playerVision : MonoBehaviour {
     private bool[] items = {false, false, false, false};
     private bool lanternaIsOn;
     public bool endGameBool = false;
+    
+    [SerializeField]
+    private Animator paraquedasDoor, cabineDoor1, cabineDoor2;
+    private Text hint;
 
     // [SerializeField]
     // public GameObject player;
@@ -30,6 +35,8 @@ public class playerVision : MonoBehaviour {
         items[2] = false;
         items[3] = false;
         endGameBool = false;
+        hint = GameObject.FindWithTag("HintText").GetComponent<Text>();
+        hint.enabled = false;
     }
     void Update(){
         // if(gm.gameState != GameManager.GameState.GAME) {
@@ -70,61 +77,126 @@ public class playerVision : MonoBehaviour {
 
      void LateUpdate()
         {
+        hint.enabled = false;
+
         RaycastHit hit;
-        Debug.DrawRay(camera.transform.position, transform.forward*4, Color.magenta);
-        if(Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 100.0f))
+        Debug.DrawRay(camera.transform.position, transform.forward, Color.magenta);
+        if(Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 5.0f))
         {
             
-            if(hit.collider.tag=="card" && Input.GetMouseButtonDown(0)){
-                Destroy(hit.transform.gameObject);
-                items[0] = true; 
-                Debug.Log($"Peguei o objeto: {hit.collider.name}");
+            if(hit.collider.tag=="card"){
+                if (Input.GetMouseButtonDown(0)) {
+                    Destroy(hit.transform.gameObject);
+                    items[0] = true; 
+                    Debug.Log($"Peguei o objeto: {hit.collider.name}");
+                }
+                hint.text = "Mouse Left Click to pick up the card";
+                hint.enabled = true;
+                
             }
-            if(hit.collider.tag=="paraquedas" && Input.GetMouseButtonDown(0)){
-                Destroy(hit.transform.gameObject);
-                items[3] = true;
-                Debug.Log($"Peguei o objeto: {hit.collider.name}");
+            if(hit.collider.tag=="paraquedas"){
+                if (Input.GetMouseButtonDown(0)) {
+                    Destroy(hit.transform.gameObject);
+                    items[3] = true;
+                    Debug.Log($"Peguei o objeto: {hit.collider.name}");
+                }
+            
+                hint.text = "Mouse Left Click to pick up the parachute";
+                hint.enabled = true;
             }
-            if(hit.collider.tag=="tool" && Input.GetMouseButtonDown(0)){
-                Destroy(hit.transform.gameObject);
-                items[2] = true;
-                Debug.Log($"Peguei o objeto: {hit.collider.name}");
+            if(hit.collider.tag=="tool"){
+                if (Input.GetMouseButtonDown(0)) {
+                    Destroy(hit.transform.gameObject);
+                    items[2] = true;
+                    Debug.Log($"Peguei o objeto: {hit.collider.name}");
+                }
+                hint.text = "Mouse Left Click to pick up the card";
+                hint.enabled = true;
             }
-            if(hit.collider.tag=="lanterna" && Input.GetMouseButtonDown(0)){
-                Destroy(hit.transform.gameObject);
-                items[1] = true; 
-                Debug.Log($"Peguei o objeto: {hit.collider.name}");
-                lanterna.SetActive(true);
-                lanternaIsOn = true;
+            if(hit.collider.tag=="lanterna"){
+                if (Input.GetMouseButtonDown(0)) {
+                    Destroy(hit.transform.gameObject);
+                    items[1] = true; 
+                    Debug.Log($"Peguei o objeto: {hit.collider.name}");
+                    lanterna.SetActive(true);
+                    lanternaIsOn = true;
+                }
+                // Debug.Log($"Cursor lock state: {Cursor.lockState}");
+                // if (Cursor.lockState == "Locked") {
+                hint.text = "Mouse Left Click to pick up the flashlight";
+                hint.enabled = true;
+                // }
             }
-            if(hit.collider.tag=="objetivo" && Input.GetMouseButtonDown(0)){
-                if (items[3]) {
+            if(hit.collider.tag=="objetivo"){
+                hint.text = "Mouse Left Click to open door";
+                hint.enabled = true;
+
+                if (Input.GetMouseButtonDown(0) && items[3]) {
                     Debug.Log("Fim de Jogo");
                     Cursor.lockState = CursorLockMode.None; 
                     SceneManager.LoadScene(2); 
                     
-                } else {
-                    Debug.Log("Hint: Você precisa de um paraquedas");
+                } else if (Input.GetMouseButtonDown(0)) {
+                    // Colocar um tempo para isso aparecer na tela
+                    // Do jeito que tá, vai flicar na tela só
+                    hint.text = "Dean: I better get a parachute to jump the plane...";
+                    hint.enabled = true;
+                    // Debug.Log("Hint: Você precisa de um paraquedas");
                 }
             }
-            if(hit.collider.tag=="paraquedasCard" && Input.GetMouseButtonDown(0)){
-                if (items[0]) {
-                    Debug.Log("Fim de Jogo");
-                    Cursor.lockState = CursorLockMode.None; 
-                    SceneManager.LoadScene(2); 
-                    
+
+            if(hit.collider.tag=="paraquedasCard"){
+                if (!items[0]){
+                    hint.text = "Dean: I guess i need a key to open this door...";
                 } else {
-                    Debug.Log("Hint: Você precisa de um paraquedas");
+                    hint.text = "Mouse Left Click to open the door";
+                }
+                hint.enabled = true;
+                
+                // for (int i = 0 ; i < items.Length ; i ++) {
+                //     Debug.Log($"item[{i}] = {items[i]}");
+                // }
+                Debug.Log($"Mouse: {Input.GetMouseButtonDown(0)}");
+                if (Input.GetMouseButtonDown(0) && items[0]) {
+                    Debug.Log("Abrir porta paraquedas");
+                    paraquedasDoor.SetBool("OpenDoor", true);
+                    hint.enabled = false;
+                } else {
+                    // paraquedasDoor.SetBool("OpenDoor", false);
+                    Debug.Log("Hint: Você precisa de um CARD PARAQUEDAS");
                 }
             }
-            if(hit.collider.tag=="cabine" && Input.GetMouseButtonDown(0)){
-                if (items[2]) {
-                    Debug.Log("Fim de Jogo");
-                    Cursor.lockState = CursorLockMode.None; 
-                    SceneManager.LoadScene(2); 
-                    
+            if(hit.collider.tag == "cabine1"){
+                if (!items[2]) {
+                    hint.text = "Dean: I need a key to open this door...";
                 } else {
-                    Debug.Log("Hint: Você precisa de um paraquedas");
+                    hint.text = "Mouse Left Click to open the door...";
+                
+                }
+                hint.enabled = true;
+                if (Input.GetMouseButtonDown(0) && items[2]) {
+                    cabineDoor1.SetBool("OpenDoor1", true);
+                    hint.enabled = false;
+                } else {
+                    // cabineDoor1.SetBool("OpenDoor1", false);
+                    Debug.Log("Hint1: Você precisa de um CARD CABINE");
+                }
+            }
+
+            if (hit.collider.tag == "cabine2") {
+                if (!items[2]) {
+                    hint.text = "Dean: I need a key to open this door...";
+                } else {
+                    hint.text = "Mouse Left Click to open the door...";
+                
+                }
+                hint.enabled = true;
+                if (Input.GetMouseButtonDown(0) && items[2]) {
+                    cabineDoor2.SetBool("OpenDoor2", true);
+                    hint.enabled = false;
+                } else {
+                    // cabineDoor2.SetBool("OpenDoor2", false);
+                    Debug.Log("Hint2: Você precisa de um CARD CABINE");
                 }
             }
         }
