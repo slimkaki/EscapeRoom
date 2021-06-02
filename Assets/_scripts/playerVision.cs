@@ -146,24 +146,16 @@ public class playerVision : MonoBehaviour {
             }
 
             if(hit.collider.tag=="paraquedasCard"){
+                hint.enabled = true;
                 if (!items[0]){
                     hint.text = "Dean: I guess i need a key to open this door...";
                 } else {
                     hint.text = "Mouse Left Click to open the door";
-                }
-                hint.enabled = true;
-                
-                // for (int i = 0 ; i < items.Length ; i ++) {
-                //     Debug.Log($"item[{i}] = {items[i]}");
-                // }
-                Debug.Log($"Mouse: {Input.GetMouseButtonDown(0)}");
-                if (Input.GetMouseButtonDown(0) && items[0]) {
-                    Debug.Log("Abrir porta paraquedas");
-                    paraquedasDoor.SetBool("OpenDoor", true);
-                    hint.enabled = false;
-                } else {
-                    // paraquedasDoor.SetBool("OpenDoor", false);
-                    Debug.Log("Hint: Você precisa de um CARD PARAQUEDAS");
+                    Debug.Log($"Mouse: {Input.GetMouseButtonDown(0)}");
+                    if (Input.GetMouseButtonDown(0)) {
+                        Debug.Log("Abrir porta paraquedas");
+                        paraquedasDoor.SetBool("OpenDoor", true);
+                    } 
                 }
             }
             if(hit.collider.tag == "cabine1"){
