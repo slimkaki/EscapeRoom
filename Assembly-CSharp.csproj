@@ -59,10 +59,13 @@
      <Compile Include="Assets\_scripts\MainMenu.cs" />
      <Compile Include="Assets\_scripts\PauseMenu.cs" />
      <Compile Include="Assets\_scripts\animationState.cs" />
+     <Compile Include="Assets\_scripts\audioManager.cs" />
+     <Compile Include="Assets\_scripts\coneBehav.cs" />
      <Compile Include="Assets\_scripts\enemyController.cs" />
      <Compile Include="Assets\_scripts\item.cs" />
      <Compile Include="Assets\_scripts\playerController.cs" />
      <Compile Include="Assets\_scripts\playerVision.cs" />
+     <Compile Include="Assets\_scripts\soundSlider.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

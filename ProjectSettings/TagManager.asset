@@ -17,6 +17,7 @@ TagManager:
   - paraquedasDoor
   - cabine1
   - cabine2
+  - cone
   layers:
   - Default
   - TransparentFX

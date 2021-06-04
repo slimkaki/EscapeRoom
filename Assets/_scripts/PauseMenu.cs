@@ -37,6 +37,8 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu(){
         Debug.Log("loadMenu");
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(0);
     }
     public void QuitGame(){

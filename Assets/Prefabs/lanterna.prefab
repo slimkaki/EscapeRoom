@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3363374697709414042}
   m_LocalRotation: {x: 0.00000005960465, y: -0.21321334, z: 0.97700566, w: 0.000000029802326}
-  m_LocalPosition: {x: 5.43, y: 0.20634353, z: 0.6075319}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 7160768648630260936}
@@ -201,7 +201,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7570459740986953214}
   - component: {fileID: 7570459740986953209}
-  - component: {fileID: 7570459740986953208}
   m_Layer: 0
   m_Name: lanterna
   m_TagString: lanterna
@@ -217,8 +216,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7570459740986953215}
   m_LocalRotation: {x: 0.579228, y: 0.579228, z: -0.40557975, w: -0.40557975}
-  m_LocalPosition: {x: -8.27, y: -11.68, z: -51.625}
-  m_LocalScale: {x: 0.4, y: 0.39999998, z: 0.39999998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 2731094366263311392}
   m_Father: {fileID: 0}
@@ -236,19 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6f95527a9925a4bbcd83122c10d7c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &7570459740986953208
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7570459740986953215}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9079087, y: 2.7536728, z: 1.8106915}
-  m_Center: {x: 5.882115, y: -0.27816036, z: 0.17130747}
 --- !u!1 &7570459741260891869
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class playerVision : MonoBehaviour {
     [SerializeField]
     private Animator paraquedasDoor, cabineDoor1, cabineDoor2;
     private Text hint;
+    public AudioSource flashLightSFX;
 
     // [SerializeField]
     // public GameObject player;
@@ -26,8 +27,11 @@ public class playerVision : MonoBehaviour {
 
     float xRotation = 0f;
     void Start(){
-        Cursor.lockState = CursorLockMode.Locked;
+        
         camera = gameObject.GetComponent<Camera>();
+        
+        // Cursor.lockState = CursorLockMode.Locked;
+
         // gm = GameManager.GetInstance();
         lanterna.SetActive(false);
         items[0] = false;
@@ -39,19 +43,7 @@ public class playerVision : MonoBehaviour {
         hint.enabled = false;
     }
     void Update(){
-        // if(gm.gameState != GameManager.GameState.GAME) {
-        //     Cursor.lockState = CursorLockMode.None;
-        //     return;
-        // } else {
-        //     // Debug.Log("To locked");
-        //     Cursor.lockState = CursorLockMode.Locked;
-        // }
-
-        // if(Input.GetKeyDown(KeyCode.Escape) && gm.gameState == GameManager.GameState.GAME) {
-        //     gm.ChangeState(GameManager.GameState.PAUSE);
-        // }
         
-        // Cursor.lockState = CursorLockMode.Locked;
         float mouseX = Input.GetAxis("Mouse X") * mouseSense * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSense * Time.deltaTime;
 
@@ -65,9 +57,11 @@ public class playerVision : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.F) && items[1]) {
             if (lanternaIsOn) {
+                flashLightSFX.Play();
                 luzLanterna.SetActive(false);
                 lanternaIsOn = false;
             } else {
+                flashLightSFX.Play();
                 luzLanterna.SetActive(true);
                 lanternaIsOn = true;
             }
@@ -121,11 +115,10 @@ public class playerVision : MonoBehaviour {
                     lanterna.SetActive(true);
                     lanternaIsOn = true;
                 }
-                // Debug.Log($"Cursor lock state: {Cursor.lockState}");
-                // if (Cursor.lockState == "Locked") {
+                
                 hint.text = "Mouse Left Click to pick up the flashlight";
                 hint.enabled = true;
-                // }
+                
             }
             if(hit.collider.tag=="objetivo"){
                 hint.text = "Mouse Left Click to open door";

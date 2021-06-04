@@ -13,8 +13,10 @@ public class playerController : MonoBehaviour {
     private float gravity = -9.81f;
     [SerializeField]
     public animationState anim;
+    public AudioSource playerWhistle;
     
     void Start() {
+        // Cursor.lockState = CursorLockMode.Locked;
         controller = gameObject.GetComponent<CharacterController>();
         // camera = gameObject.GetComponent<Camera>();
         // anim = GetComponent<animationState>();
@@ -31,13 +33,16 @@ public class playerController : MonoBehaviour {
         Vector3 move = transform.right * x + transform.forward*z;
 
         if (Input.GetButton("Fire3")){
-            // Time.timeScale = 0;
-            playerSpeed = 5f;          
+            playerSpeed = 7f;          
         }else {
-            playerSpeed = 3f;
+            playerSpeed = 5f;
+        }
+        
+        if (Input.GetKey("e")){
+            playerWhistle.Play();
         }
 
-      
+       
         
 
         controller.Move(move * Time.deltaTime * playerSpeed);

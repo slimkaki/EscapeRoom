@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class enemyController : MonoBehaviour
 {
@@ -30,6 +31,13 @@ public class enemyController : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
     private Vector3 lastPosition;
+    int isWalkingHash,isRunningHash;
+    Animator animator;
+
+    public bool walkingBool, runningBool; 
+
+    private float timeAtk;
+    private bool attacking;
 
     private void Awake()
     {
@@ -38,35 +46,59 @@ public class enemyController : MonoBehaviour
         lastTimeIWalked = Time.time;
         tempoParado = Time.time;
         lastPosition = this.transform.position;
+        walkingBool = false;
+    }
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+        isWalkingHash  = Animator.StringToHash("isWalkingEnemy");
+        isRunningHash = Animator.StringToHash("isRunningEnemy");
+        Debug.Log(animator);
+        timeAtk = Time.time;
+        attacking = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
+        
+        bool isWalking = animator.GetBool(isWalkingHash);
+
+        bool isRunning = animator.GetBool(isRunningHash);
         //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        // playerInSightRange         // playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         // Debug.Log($"last time: {lastTimeIWalked - Time.time} s");
+        if (Vector3.Distance(transform.position, walkPoint) == 0) { animator.SetBool(isWalkingHash,false); }
+        if (!playerInSightRange && !playerInAttackRange && Time.time  - lastTimeIWalked >= 2f) { 
+            Patroling(); 
+            lastTimeIWalked = Time.time;
+            animator.SetBool(isRunningHash,false);
+            
+        }
 
-        if (!playerInSightRange && !playerInAttackRange && Time.time  - lastTimeIWalked >= 2f) { Patroling(); lastTimeIWalked = Time.time; } 
-        if (!playerInSightRange && playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (playerInSightRange){ 
+            ChasePlayer();
+            animator.SetBool(isRunningHash,true);
+        }
+        if (playerInAttackRange) AttackPlayer();
 
         lastPosition = this.transform.position;
     }
 
     private void Patroling()
     {   
+        attacking = false;
+        animator.SetBool(isWalkingHash,true); 
         // Debug.Log("Enemy patrolling");
-        if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet) {
-            if (Vector3.Distance(lastPosition, this.transform.position) == 0f) {
-                Vector3 newWayPoint = new Vector3(-this.transform.position.x, -this.transform.position.y, -this.transform.position.z);
-                agent.SetDestination(newWayPoint);
-            } else {
-                agent.SetDestination(walkPoint);
-            }
+        if (walkPointSet && Vector3.Distance(lastPosition, this.transform.position) == 0f ) {
+            Vector3 newWayPoint = new Vector3(-this.transform.position.x, -this.transform.position.y, -this.transform.position.z);
+            walkPoint = newWayPoint;
         }
+        
+        if (!walkPointSet) SearchWalkPoint();
+        
+        agent.SetDestination(walkPoint);
             
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
@@ -99,12 +131,22 @@ public class enemyController : MonoBehaviour
 
     private void AttackPlayer()
     {   
+        animator.SetBool(isRunningHash,true);
         // Debug.Log("Enemy attacking");
         //Make sure enemy doesn't move
-        agent.SetDestination(transform.position);
+        if (!attacking){
+            attacking = true;
+            timeAtk = Time.time;
+        } else if (Time.time - timeAtk >= 0.5f){
+            Debug.Log("Vc perdeu");
+            Cursor.lockState = CursorLockMode.None; 
+            SceneManager.LoadScene(2);
+        }
+        
 
-        transform.LookAt(player);
 
+        // transform.LookAt(player);
+        
    
     }
     private void OnDrawGizmosSelected()
@@ -114,4 +156,6 @@ public class enemyController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+
+
 }
