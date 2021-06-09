@@ -39,6 +39,7 @@ public class playerController : MonoBehaviour {
         }
         
         if (Input.GetKey("e")){
+            NearEnemies();
             playerWhistle.Play();
         }
 
@@ -50,6 +51,22 @@ public class playerController : MonoBehaviour {
         velocity.y += gravity * Time.deltaTime;
       
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void NearEnemies() {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        foreach(GameObject enemy in enemies) {
+            if (Vector3.Distance(this.transform.position, enemy.transform.position) <= 35f) {
+                float xR = Random.Range(-5f, 5f);
+                float yR = Random.Range(-2.5f, 2.5f);
+                float zR = Random.Range(-5f, 5f);
+
+                Vector3 noise_pos = new Vector3(this.transform.position.x+xR, this.transform.position.y+yR, this.transform.position.z+zR);
+                enemy.GetComponent<enemyController>().walkPointSet = true;
+                enemy.GetComponent<enemyController>().lastTimeIWalked = Time.time;
+                enemy.GetComponent<enemyController>().walkPoint = noise_pos;
+            }
+        }
     }
    
 }

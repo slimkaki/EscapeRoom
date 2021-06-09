@@ -26,6 +26,7 @@ public class EndGame : MonoBehaviour
     }
     public void PlayGame()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         SceneManager.LoadScene(1);
     }
     public void QuitGame(){

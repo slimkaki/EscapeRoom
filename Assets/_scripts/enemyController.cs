@@ -16,12 +16,12 @@ public class enemyController : MonoBehaviour
     
 
     //Patroling
-    public Vector3 walkPoint;
-    bool walkPointSet;
+    public Vector3 walkPoint, noise_walkPoint;
+    public bool walkPointSet;
     public float walkPointRange;
 
     // Time Variables
-    private float lastTimeIWalked, tempoParado;
+    public float lastTimeIWalked, tempoParado;
 
     //Attacking
     
@@ -34,7 +34,8 @@ public class enemyController : MonoBehaviour
     int isWalkingHash,isRunningHash;
     Animator animator;
 
-    public bool walkingBool, runningBool; 
+    public bool walkingBool, runningBool, heard_something;
+    public float heard_time;
 
     private float timeAtk;
     private bool attacking;
@@ -47,6 +48,7 @@ public class enemyController : MonoBehaviour
         tempoParado = Time.time;
         lastPosition = this.transform.position;
         walkingBool = false;
+        heard_something = false;
     }
     void Start()
     {
@@ -64,6 +66,11 @@ public class enemyController : MonoBehaviour
         bool isWalking = animator.GetBool(isWalkingHash);
 
         bool isRunning = animator.GetBool(isRunningHash);
+
+        // if (heard_something && Time.time - heard_time <= 5.0f) {
+        //     agent.SetDestination(noise_walkPoint);
+        //     SearchWalkPoint();
+        // }
         //Check for sight and attack range
         // playerInSightRange         // playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -140,7 +147,7 @@ public class enemyController : MonoBehaviour
         } else if (Time.time - timeAtk >= 0.5f){
             Debug.Log("Vc perdeu");
             Cursor.lockState = CursorLockMode.None; 
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
         
 

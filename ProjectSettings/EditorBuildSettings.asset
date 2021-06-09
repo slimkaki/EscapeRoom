@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/aviao.unity
     guid: ebf89c0497604974e8660e898befcdf9
   - enabled: 1
-    path: Assets/Scenes/EndGame.unity
+    path: Assets/Scenes/EndGameWin.unity
     guid: 5540e86368a25fd478ef9d17cd741e93
+  - enabled: 1
+    path: Assets/Scenes/EndGameLose.unity
+    guid: 8983406ee26addc479684f53b82533e9
   m_configObjects: {}

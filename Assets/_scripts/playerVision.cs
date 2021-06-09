@@ -19,7 +19,7 @@ public class playerVision : MonoBehaviour {
     [SerializeField]
     private Animator paraquedasDoor, cabineDoor1, cabineDoor2;
     private Text hint;
-    public AudioSource flashLightSFX;
+    public AudioSource flashLightSFX, portaSound, itemSound, accessDeniedSound;
 
     // [SerializeField]
     // public GameObject player;
@@ -81,7 +81,8 @@ public class playerVision : MonoBehaviour {
             if(hit.collider.tag=="card"){
                 if (Input.GetMouseButtonDown(0)) {
                     Destroy(hit.transform.gameObject);
-                    items[0] = true; 
+                    items[0] = true;
+                    itemSound.Play();
                     Debug.Log($"Peguei o objeto: {hit.collider.name}");
                 }
                 hint.text = "Mouse Left Click to pick up the card";
@@ -92,6 +93,7 @@ public class playerVision : MonoBehaviour {
                 if (Input.GetMouseButtonDown(0)) {
                     Destroy(hit.transform.gameObject);
                     items[3] = true;
+                    itemSound.Play();
                     Debug.Log($"Peguei o objeto: {hit.collider.name}");
                 }
             
@@ -102,6 +104,7 @@ public class playerVision : MonoBehaviour {
                 if (Input.GetMouseButtonDown(0)) {
                     Destroy(hit.transform.gameObject);
                     items[2] = true;
+                    itemSound.Play();
                     Debug.Log($"Peguei o objeto: {hit.collider.name}");
                 }
                 hint.text = "Mouse Left Click to pick up the card";
@@ -111,6 +114,7 @@ public class playerVision : MonoBehaviour {
                 if (Input.GetMouseButtonDown(0)) {
                     Destroy(hit.transform.gameObject);
                     items[1] = true; 
+                    itemSound.Play();
                     Debug.Log($"Peguei o objeto: {hit.collider.name}");
                     lanterna.SetActive(true);
                     lanternaIsOn = true;
@@ -142,10 +146,12 @@ public class playerVision : MonoBehaviour {
                 hint.enabled = true;
                 if (!items[0]){
                     hint.text = "Dean: I guess i need a key to open this door...";
+                    if (Input.GetMouseButtonDown(0)) accessDeniedSound.Play();
                 } else {
                     hint.text = "Mouse Left Click to open the door";
                     Debug.Log($"Mouse: {Input.GetMouseButtonDown(0)}");
                     if (Input.GetMouseButtonDown(0)) {
+                        portaSound.Play();
                         Debug.Log("Abrir porta paraquedas");
                         paraquedasDoor.SetBool("OpenDoor", true);
                     } 
@@ -153,6 +159,7 @@ public class playerVision : MonoBehaviour {
             }
             if(hit.collider.tag == "cabine1"){
                 if (!items[2]) {
+                    if (Input.GetMouseButtonDown(0)) accessDeniedSound.Play();
                     hint.text = "Dean: I need a key to open this door...";
                 } else {
                     hint.text = "Mouse Left Click to open the door...";
@@ -160,6 +167,7 @@ public class playerVision : MonoBehaviour {
                 }
                 hint.enabled = true;
                 if (Input.GetMouseButtonDown(0) && items[2]) {
+                    portaSound.Play();
                     cabineDoor1.SetBool("OpenDoor1", true);
                     hint.enabled = false;
                 } else {
@@ -170,6 +178,7 @@ public class playerVision : MonoBehaviour {
 
             if (hit.collider.tag == "cabine2") {
                 if (!items[2]) {
+                    if (Input.GetMouseButtonDown(0)) accessDeniedSound.Play();
                     hint.text = "Dean: I need a key to open this door...";
                 } else {
                     hint.text = "Mouse Left Click to open the door...";
@@ -177,6 +186,7 @@ public class playerVision : MonoBehaviour {
                 }
                 hint.enabled = true;
                 if (Input.GetMouseButtonDown(0) && items[2]) {
+                    portaSound.Play();
                     cabineDoor2.SetBool("OpenDoor2", true);
                     hint.enabled = false;
                 } else {
